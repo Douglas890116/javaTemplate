@@ -1,7 +1,7 @@
 package com.template.common;
 
 /**
- * Created by ws on 2016/7/4.
+ * Created by Cloud on 2016/7/4.
  */
 public class Result<T> {
 

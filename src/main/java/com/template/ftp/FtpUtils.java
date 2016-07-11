@@ -2,7 +2,6 @@ package com.template.ftp;
 
 import com.template.file.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
@@ -11,6 +10,7 @@ import java.io.*;
 
 /**
  * ftp 上传下载工具类
+ * 采用Apache FTPClient类
  * Created by Cloud on 2016/6/28.
  */
 public class FtpUtils {

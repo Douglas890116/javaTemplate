@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <!-- log4j 日志包 -->
+        <!-- log4j  -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -31,6 +31,27 @@
             <version>3.5</version>
         </dependency>
 
+        <!-- apache poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.14</version>
+        </dependency>
+
+        <!-- apache poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.14</version>
+        </dependency>
+
+        <!-- apache commons-lang -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
         <!-- apache httpClient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -45,14 +66,7 @@
             <version>4.12</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.jodd/jodd-mail -->
+        <!-- Jodd Email -->
         <dependency>
             <groupId>org.jodd</groupId>
             <artifactId>jodd-mail</artifactId>

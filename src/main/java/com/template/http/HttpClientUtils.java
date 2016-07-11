@@ -12,6 +12,7 @@ import java.io.InputStream;
 
 /**
  * http操作的工具类
+ * 采用Apache httpClient类
  * Created by Cloud on 2016/6/27.
  */
 public class HttpClientUtils {

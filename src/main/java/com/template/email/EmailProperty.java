@@ -2,7 +2,6 @@ package com.template.email;
 
 import org.apache.log4j.Logger;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -26,10 +25,5 @@ public class EmailProperty {
         } catch (IOException e) {
             log.error("加载email.properties时出错!!!", e);
         }
-    }
-
-    public static void main(String[] arg) {
-        System.out.println(props.getProperty("smtp_server"));
-        System.out.println(props.getProperty("imap_server"));
     }
 }

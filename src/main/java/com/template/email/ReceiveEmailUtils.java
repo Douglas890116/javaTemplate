@@ -1,6 +1,5 @@
 package com.template.email;
 
-import jodd.format.Printf;
 import jodd.mail.*;
 
 import java.io.File;
@@ -15,7 +14,7 @@ import static com.template.email.EmailProperty.props;
  */
 public class ReceiveEmailUtils {
     private String IMAP_SERVER; // IMAP服务器地址
-    private int IMAP_SSL_PORT;  // SSL端口号
+    private int    IMAP_SSL_PORT;  // SSL端口号
     private String IMAP_ADDRESS;// 邮箱地址
     private String PASSWORD;    // 邮箱密码
 
@@ -37,11 +36,12 @@ public class ReceiveEmailUtils {
 
 
     /**
+     * 有参构造函数
      * 收取指定邮箱的邮件
-     * @param email_address
-     * @param password
-     * @param imap_server
-     * @param imap_port
+     * @param email_address 收取邮件的邮箱地址
+     * @param password      登录密码
+     * @param imap_server   imap服务器地址
+     * @param imap_port     端口
      */
     public ReceiveEmailUtils(String email_address, String password, String imap_server, int imap_port) {
         this.IMAP_SERVER = imap_server;
@@ -54,7 +54,7 @@ public class ReceiveEmailUtils {
 
     /**
      * 获取邮件
-     * @return
+     * @return 邮件列表
      */
     public ReceivedEmail[] receivedEmails() {
         ReceiveMailSession session = imapServer.createSession();
@@ -76,7 +76,7 @@ public class ReceiveEmailUtils {
 
     /**
      * 读取邮件
-     * @param email
+     * @param email 邮件
      */
     public void readEmail(ReceivedEmail email) {
         if (null == email) return;
@@ -116,7 +116,7 @@ public class ReceiveEmailUtils {
     public static void main(String[] arg) {
         ReceiveEmailUtils receive = new ReceiveEmailUtils();
         List<ReceivedEmail> emails = Arrays.asList(receive.receivedEmails());
-        if (null != emails && emails.size() > 0) {
+        if (emails.size() > 0) {
             for (ReceivedEmail email : emails) {
                 receive.readEmail(email);
             }

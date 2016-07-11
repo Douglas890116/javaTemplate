@@ -15,7 +15,7 @@ import static com.template.email.EmailProperty.props;
 public class SendEmailUtils {
 
     private String SMTP_SERVER; // smtp服务器地址
-    private int SMTP_SSL_PORT;  // ssl端口号
+    private int    SMTP_SSL_PORT;  // ssl端口号
     private String SMTP_ADDRESS;// 邮箱地址
     private String PASSWORD;    // 邮箱密码
 
@@ -35,6 +35,7 @@ public class SendEmailUtils {
     }
 
     /**
+     * 有参构造函数
      * 用自己的邮件服务器发送
      *
      * @param from_address 发送邮箱
@@ -55,9 +56,9 @@ public class SendEmailUtils {
     /**
      * 发送html格式的邮件
      *
-     * @param to_address
-     * @param title
-     * @param content_html
+     * @param to_address    收件箱地址
+     * @param title         邮件标题
+     * @param content_html  html格式的邮件内容
      */
     public void sendHtmlEmail(String to_address, String title, String content_html) {
         Email emailHtml = Email.create()
@@ -74,9 +75,9 @@ public class SendEmailUtils {
     /**
      * 发送文本格式的邮件
      *
-     * @param to_address
-     * @param title
-     * @param content_text
+     * @param to_address    收件箱地址
+     * @param title         邮件标题
+     * @param content_text  文本格式的邮件内容
      */
     public void sendTextEmail(String to_address, String title, String content_text) {
         Email emailText = Email.create()

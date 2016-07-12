@@ -1,6 +1,10 @@
 package com.template.office.excel;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -8,8 +12,9 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 /**
  * 创建/读取 一个Excel文件
@@ -105,8 +110,40 @@ public class ExcelUtils {
         }
     }
 
+    public static void createExcel() {
+        SXSSFWorkbook workbook = new SXSSFWorkbook(100);
+        SXSSFSheet sheet = workbook.createSheet("test_sheet");
+        SXSSFRow row;
+        SXSSFCell cell;
+        for (int i = 0; i < 1000; i++) {
+            row = sheet.createRow(i);
+            for (int j = 0; j < 10; j++) {
+                cell = row.createCell(j, SXSSFCell.CELL_TYPE_STRING);
+                cell.setCellValue("这是第[" + i + "]行,第[" + j + "]列。");
+            }
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream("e:/ws/excel_creat.xlsx");
+            workbook.write(fos);
+            fos.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
     public static void main(String[] arg) {
-        File excel = new File("E:\\集团表单\\漏打卡申请表-新版.xlsx");
-        ExcelUtils.readExcel(excel);
+        File file = new File("E:\\LeajoyOA项目\\OA系统需求收集汇总.xlsx.xlsx");
+        ExcelUtils.readExcel(file);
+        ExcelUtils.createExcel();
     }
 }

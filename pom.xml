@@ -59,7 +59,7 @@
             <version>4.5.2</version>
         </dependency>
 
-        <!-- JUnit 测试包 -->
+        <!-- JUnit4 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -70,6 +70,13 @@
         <dependency>
             <groupId>org.jodd</groupId>
             <artifactId>jodd-mail</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+
+        <!-- Jodd Http -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-http</artifactId>
             <version>3.7.1</version>
         </dependency>
 

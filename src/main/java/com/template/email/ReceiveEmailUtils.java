@@ -108,8 +108,7 @@ public class ReceiveEmailUtils {
                 System.out.println("name: " + attachment.getName());
                 System.out.println("cid: " + attachment.getContentId());
                 System.out.println("size: " + attachment.getSize());
-                attachment.writeToFile(
-                        new File("d:\\", attachment.getName()));
+                attachment.writeToFile(new File("d:\\", attachment.getName()));
             }
         }
     }

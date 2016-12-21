@@ -39,9 +39,8 @@ public class HttpClientUtils {
             }
             response.close();
         } catch (IOException e) {
-            log.error("httpGet出错！", e);
+            log.error("http get error !", e);
         } finally {
-
             try {
                 httpClient.close();
             } catch (IOException e) {

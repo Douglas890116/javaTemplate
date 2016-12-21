@@ -60,7 +60,7 @@ public class ExcelUtils {
             for (int i = 0; i < sheetNum; i++) {
                 sheet = workbook.getSheetAt(i);
                 if (null == sheet) continue;
-                System.out.println("下面开始输出【" + sheet.getSheetName() + "】工作表。");
+//                System.out.println("下面开始输出【" + sheet.getSheetName() + "】工作表。");
                 rowNum = sheet.getLastRowNum();
                 for (int j = 0; j <= rowNum; j++) {
                     row = sheet.getRow(j);

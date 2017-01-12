@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 
 /**
- * Created by ws on 2016-12-20.
+ * Created by Cloud on 2016-12-20.
  */
 public class QRcode {
     private static final int BLACK = 0xFF000000;

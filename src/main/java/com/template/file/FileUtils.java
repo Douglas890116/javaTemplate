@@ -1,9 +1,6 @@
 package com.template.file;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.channels.FileChannel;
 
 /**
@@ -14,6 +11,7 @@ public class FileUtils {
     /**
      * 格式化路径
      * 将反斜杠(\)替换成斜杠(/)
+     *
      * @param pathStr 原始路径
      * @return 格式化后的路径
      */
@@ -33,6 +31,7 @@ public class FileUtils {
 
     /**
      * 创建一个新文件
+     *
      * @param file 需要创建的文件
      * @throws IOException 抛出可能的异常
      */
@@ -45,27 +44,115 @@ public class FileUtils {
     }
 
     /**
-     * 文件复制
-     * @param from 被复制的文件
-     * @param to 复制出来的新文件
+     * 通过单个字节复制文件，效率极低!!!
+     *
+     * @param from 源文件
+     * @param to   目标文件
+     */
+    public static void fileCopyByByte(File from, File to) throws IOException {
+        if (!from.exists() || !from.isFile())
+            throw new IOException("源文件不存在，或者只是文件夹!");
+        FileInputStream fis = new FileInputStream(from);
+        FileOutputStream fos = new FileOutputStream(to);
+        int size;
+        while ((size = fis.read()) >= 0) {
+            fos.write(size);
+            fos.flush();
+        }
+        fis.close();
+        fos.close();
+    }
+
+    /**
+     * 通过字节数组复制文件
+     *
+     * @param from 源文件
+     * @param to   目标文件
+     * @throws IOException
+     */
+    public static void fileCopyByBytes(File from, File to) throws IOException {
+        if (!from.exists() || !from.isFile())
+            throw new IOException("源文件不存在，或者只是文件夹");
+        FileInputStream fis = new FileInputStream(from);
+        FileOutputStream fos = new FileOutputStream(to);
+        byte[] buf = new byte[1000 * 1024];
+        int size;
+        while ((size = fis.read(buf, 0, buf.length)) >= 0) {
+            fos.write(buf, 0, size);
+            fos.flush();
+        }
+        fis.close();
+        fos.close();
+    }
+
+    /**
+     * 通过带缓冲的单字节复制文件，效率极低!!!
+     *
+     * @param from 源文件
+     * @param to   目标文件
+     * @throws IOException
+     */
+    public static void fileCopyByBufferedByte(File from, File to) throws IOException {
+        if (!from.exists() || !from.isFile())
+            throw new IOException("源文件不存在，或者只是文件夹!");
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(from));
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(to));
+        int size;
+        while ((size = bis.read()) >= 0) {
+            bos.write(size);
+            bos.flush();
+        }
+        bis.close();
+        bos.close();
+    }
+
+    /**
+     * 通过带缓冲的字节数组复制文件
+     *
+     * @param from 源文件
+     * @param to   目标文件
+     * @throws IOException
+     */
+    public static void fileCopyByBufferedBytes(File from, File to) throws IOException {
+        if (!from.exists() || !from.isFile())
+            throw new IOException("源文件不存在，或者只是文件夹!");
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(from));
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(to));
+        byte[] buff = new byte[1000 * 1024];
+        int size;
+        while ((size = bis.read(buff, 0, buff.length)) >= 0) {
+            bos.write(buff, 0, size);
+            bos.flush();
+        }
+        bis.close();
+        bos.close();
+    }
+
+    /**
+     * 通过通道复制文件
+     *
+     * @param from 源文件
+     * @param to   目标文件
      * @throws IOException 抛出IO异常
      */
-    public static void fileCopy(File from, File to) throws IOException {
-        if (!from.exists() || from.isDirectory())
+    public static void fileCopyByChannel(File from, File to) throws IOException {
+        if (!from.exists() || !from.isFile())
             throw new IOException("文件不存在,或者只有文件夹!");
-        //为防万一，先创建文件
-        createFile(to);
         //文件复制的准备工作
         FileOutputStream fos = new FileOutputStream(to);
-        FileInputStream fis  = new FileInputStream(from);
+        FileInputStream fis = new FileInputStream(from);
         FileChannel outputChannel = fos.getChannel();
         FileChannel inputChannel = fis.getChannel();
         //开始复制文件
-        inputChannel.transferTo(0, inputChannel.size(), outputChannel);
+//        inputChannel.transferTo(0, inputChannel.size(), outputChannel);
+        outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
         //善后工作
         inputChannel.close();
         outputChannel.close();
         fis.close();
         fos.close();
+    }
+
+    public static void main(String[] arg) {
     }
 }

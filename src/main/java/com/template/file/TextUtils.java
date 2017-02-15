@@ -40,13 +40,17 @@ public class TextUtils {
     public static void writeText(File file, String message, String charset, boolean isAppend) throws IOException {
         if (!file.exists()) FileUtils.createFile(file);
         FileWriter fw = new FileWriter(file, isAppend);
+//        PrintWriter pw = new PrintWriter(fw, true);// 第二个参数设定是否自动刷新缓冲区
         BufferedWriter bw = new BufferedWriter(fw);
         String msg = new String(message.getBytes(charset), charset);
         bw.write(msg);
+//        pw.println(msg);
         bw.newLine();
         bw.flush();
         fw.flush();
+//        pw.flush();// 如果构造函数中是否自动刷新缓冲区为TRUE，则此处无需再次刷新
         bw.close();
         fw.close();
+//        pw.close();
     }
 }

@@ -8,6 +8,7 @@ public class Result<T> {
     private boolean isSuccess = false;// 处理结果是否正确
     private int resulCode;// 处理结果Code
     private String message;// 处理信息
+    private Exception exception;
     private T date;// 结果数据
     /**
      * 成功
@@ -57,6 +58,14 @@ public class Result<T> {
         this.message = message;
     }
 
+    public Exception getException() {
+        return exception;
+    }
+
+    public void setException(Exception exception) {
+        this.exception = exception;
+    }
+
     public T getDate() {
         return date;
     }
@@ -68,19 +77,22 @@ public class Result<T> {
     /**
      * 不带参的构造函数
      */
-    public Result () {}
+    public Result() {
+    }
 
     /**
      * 带参构造函数
+     *
      * @param isSuccess
      * @param resulCode
      * @param message
      * @param date
      */
-    public Result(boolean isSuccess, int resulCode, String message, T date) {
+    public Result(boolean isSuccess, int resulCode, String message, Exception exception, T date) {
         this.isSuccess = isSuccess;
         this.resulCode = resulCode;
         this.message = message;
+        this.exception = exception;
         this.date = date;
     }
 }

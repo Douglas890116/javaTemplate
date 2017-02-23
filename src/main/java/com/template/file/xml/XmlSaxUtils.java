@@ -14,7 +14,13 @@ import java.io.IOException;
 public class XmlSaxUtils {
     /* SAX，通过java自带的类进行xml的解析 */
 
-
+    /**
+     *
+     * @param xml
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     */
     public static void readXmlBySAX(File xml) throws ParserConfigurationException, SAXException, IOException {
         // 获取一个SAXParserFactory的实例
         SAXParserFactory factory = SAXParserFactory.newInstance();

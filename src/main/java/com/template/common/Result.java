@@ -6,7 +6,7 @@ package com.template.common;
 public class Result<T> {
 
     private boolean isSuccess = false;// 处理结果是否正确
-    private int resulCode;// 处理结果Code
+    private int resultCode;// 处理结果Code
     private String message;// 处理信息
     private Exception exception;
     private T date;// 结果数据
@@ -42,12 +42,12 @@ public class Result<T> {
         isSuccess = success;
     }
 
-    public int getResulCode() {
-        return resulCode;
+    public int getResultCode() {
+        return resultCode;
     }
 
-    public void setResulCode(int resulCode) {
-        this.resulCode = resulCode;
+    public void setResultCode(int resultCode) {
+        this.resultCode = resultCode;
     }
 
     public String getMessage() {
@@ -83,14 +83,14 @@ public class Result<T> {
     /**
      * 带参构造函数
      *
-     * @param isSuccess
-     * @param resulCode
-     * @param message
-     * @param date
+     * @param isSuccess 标识结果是否成功
+     * @param resulCode 结果码
+     * @param message   消息
+     * @param date      需要的消息
      */
     public Result(boolean isSuccess, int resulCode, String message, Exception exception, T date) {
         this.isSuccess = isSuccess;
-        this.resulCode = resulCode;
+        this.resultCode = resulCode;
         this.message = message;
         this.exception = exception;
         this.date = date;

@@ -2,6 +2,7 @@ package com.template.file;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 
 /**
  * 一个对文件操作的工具类

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="GBK"?>
+<root>
+    <bookList count="2">
+        <book id="1">
+            <name>Thinking In Java</name>
+            <author>Bruce Eckel</author>
+            <language>English</language>
+        </book>
+        <book id="2">
+            <name>大话设计模式</name>
+            <author>程杰</author>
+            <language>简体中文</language>
+        </book>
+    </bookList>
+</root>

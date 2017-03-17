@@ -7,6 +7,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.*;
+import java.lang.reflect.Array;
 
 /**
  * ftp 上传下载工具类
@@ -45,6 +46,7 @@ public class FtpUtils {
 
     /**
      * 打开ftp连接
+     *
      * @return
      */
     public boolean open() throws IOException {
@@ -89,12 +91,13 @@ public class FtpUtils {
 
     /**
      * 改变目录
+     *
      * @param ftpPath 目录地址
      * @return
      * @throws IOException
      */
     public boolean changeDir(String ftpPath) throws IOException {
-        if (null == ftpClient || ! ftpClient.isConnected()) return false;
+        if (null == ftpClient || !ftpClient.isConnected()) return false;
         ftpPath = FileUtils.pathFormat(ftpPath);
         ftpPath = UnicodeFormat(ftpPath);
         if (ftpPath.indexOf('/') < 0) {
@@ -105,7 +108,7 @@ public class FtpUtils {
             for (String path : paths) {
                 result = ftpClient.changeWorkingDirectory(UnicodeFormat(path));
             }
-            return  result;
+            return result;
         }
     }
 
@@ -122,6 +125,7 @@ public class FtpUtils {
 
     /**
      * 创建目录
+     *
      * @param ftpPath 需要创建目录的路径
      * @return
      */
@@ -147,6 +151,7 @@ public class FtpUtils {
 
     /**
      * 上传整个目录
+     *
      * @param file 需要上传到目录
      */
     public void upload(File file) throws IOException {
@@ -176,9 +181,10 @@ public class FtpUtils {
 
     /**
      * 將本地文件上上传到ftp服务器指定位置
-     * @param localFile 本地文件位置
+     *
+     * @param localFile   本地文件位置
      * @param ftpFileName 上传到ftp服务器后的文件名
-     * @param ftpDir 需要上传到ftp服务器的目录
+     * @param ftpDir      需要上传到ftp服务器的目录
      * @return
      */
     public boolean put(String localFile, String ftpFileName, String ftpDir) throws IOException {
@@ -193,7 +199,8 @@ public class FtpUtils {
 
     /**
      * 从ftp服务器上下载文件到本地
-     * @param ftpFile 服务器上的文件位置
+     *
+     * @param ftpFile   服务器上的文件位置
      * @param localFile 下载到本地的文件位置
      * @return
      */
@@ -208,6 +215,7 @@ public class FtpUtils {
 
     /**
      * 删除FTP上的文件
+     *
      * @param ftpFile
      * @return
      */
@@ -219,6 +227,7 @@ public class FtpUtils {
 
     /**
      * 产出ftp上的目录
+     *
      * @param dir
      * @return
      * @throws IOException
@@ -231,6 +240,7 @@ public class FtpUtils {
 
     /**
      * 删除整个目录
+     *
      * @param path
      * @return
      * @throws IOException
@@ -265,7 +275,7 @@ public class FtpUtils {
      * 单文件下载
      * 这个方法是找老外的文档 自己修改了很多，很不容易 包括中文 路径 乱码
      *@description 此方法描述的是：
-     *@author  mf [海扬 QQ 929541303]
+     *@author mf [海扬 QQ 929541303]
      *@version 2013-11-26下午10:13:07.
      */
 //    public static boolean downloadSingleFile(String remoteFilePath, String savePath) throws IOException {
@@ -308,7 +318,7 @@ public class FtpUtils {
      * 文件夹下载
      * 这个方法是找老外的文档 自己修改了很多，很不容易 包括中文 路径 乱码
      *@description 此方法描述的是：
-     *@author  mf [海扬 QQ 929541303]
+     *@author mf [海扬 QQ 929541303]
      *@version 2013-11-26下午10:13:07.
      */
 //    public static void downloadDirectory(String parentDir, String currentDir, String saveDir) throws IOException {

@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
  * 这个类主要测试一下Apache Log4j日志的用法
  * Created by Cloud on 2016/6/27.
  */
-public class Log {
+public class Log extends Thread implements Runnable {
     private static Logger log = Logger.getLogger(Log.class);
 
     public static void main(String[] args) {

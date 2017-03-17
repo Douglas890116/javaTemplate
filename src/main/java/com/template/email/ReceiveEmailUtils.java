@@ -94,7 +94,7 @@ public class ReceiveEmailUtils {
         // process messages
         List<EmailMessage> messages = email.getAllMessages();
         for (EmailMessage msg : messages) {
-            System.out.println("------");
+            System.out.println("-----");
             System.out.println(msg.getEncoding());
             System.out.println(msg.getMimeType());
             System.out.println(msg.getContent());

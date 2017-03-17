@@ -2,6 +2,7 @@ package com.template.email;
 
 import org.apache.log4j.Logger;
 
+import javax.accessibility.Accessible;
 import java.io.IOException;
 import java.util.Properties;
 

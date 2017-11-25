@@ -1,14 +1,24 @@
 package com.template.http;
 
+import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.log4j.Logger;
+import sun.nio.ch.IOUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * http操作的工具类
@@ -16,7 +26,10 @@ import java.io.InputStream;
  * Created by Cloud on 2016/6/27.
  */
 public class HttpClientUtils {
-    Logger log = Logger.getLogger(HttpClientUtils.class);
+    private static Logger log = Logger.getLogger(HttpClientUtils.class);
+
+    // 一些常用固定值
+    private static final String CHARSET = "UTF-8";
 
     public void get() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -49,8 +62,65 @@ public class HttpClientUtils {
         }
     }
 
-    public void post() {
+    /**
+     * 发起GET请求
+     * @param url
+     * @return
+     */
+    public static String doGetSubmit(String url) {
+        GetMethod get = new GetMethod(url);
+        // 可换成其他Content-Type格式，此处为json格式演示
+        get.setRequestHeader("Content-Type", "application/json");
+        get.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, 1000 * 10);
+        get.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler());
+        get.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, CHARSET);
 
+        HttpClient httpClient = new HttpClient();
+        try {
+            int statusCode = httpClient.executeMethod(get);
+            InputStream is = get.getResponseBodyAsStream();
+            String result = IOUtils.toString(is, CHARSET);
+            // TODO 此处可以做一些处理完善
+            return result;
+        } catch (IOException e) {
+            log.error("doGetSubmit 方法错误: ", e);
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 发起POST请求
+     * @param url
+     * @param params
+     * @return
+     */
+    public static String doPostSubmit(String url, Map<String, String> params) {
+        PostMethod post = new PostMethod(url);
+        if (params != null && params.size() > 0) {
+            NameValuePair[] parametersBody = new NameValuePair[params.size()];
+            int i = 0;
+            for (String key: params.keySet()) {
+                parametersBody[i] = new NameValuePair(key, params.get(key));
+            }
+            post.setRequestBody(parametersBody);
+        }
+        // 可换成其他Content-Type格式，此处为普通表单格式演示
+        post.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        post.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, CHARSET);
+
+        HttpClient httpClient = new HttpClient();
+        try {
+            int statusCode = httpClient.executeMethod(post);
+            InputStream is = post.getResponseBodyAsStream();
+            String result = IOUtils.toString(is, CHARSET);
+            // 同GET方法此处可做一些完善
+            return result;
+        } catch (IOException e) {
+            log.error("doPostSubmit 方法错误: ", e);
+            e.printStackTrace();
+        }
+        return "";
     }
 
     private String readHttpEntity(HttpEntity entity) throws IOException {

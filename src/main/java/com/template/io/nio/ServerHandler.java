@@ -57,7 +57,9 @@ public class ServerHandler implements Runnable {
     public void run() {
         while (status) {
             try {
-                // 无论是否有读写事件发生，selector每隔1s被唤醒一次
+                // 阻塞, 只有当至少一个注册的事件发生的时候才会继续.
+//                 selector.select();
+                // 非阻塞, 无论是否有读写事件发生，selector每隔1s被唤醒一次
                 selector.select(1000);
                 Set<SelectionKey> keys =  selector.selectedKeys();
                 Iterator<SelectionKey> it = keys.iterator();
@@ -102,7 +104,7 @@ public class ServerHandler implements Runnable {
                 // 将选择器注册为读
                 socketChannel.register(selector, SelectionKey.OP_READ);
             }
-            // 开始读去信息
+            // 若消息可读, 则开始读去信息
             if (key.isReadable()) {
                 SocketChannel socketChannel = (SocketChannel) key.channel();
                 // 创建ByteBuffer，并开辟一个1M的缓冲区
@@ -124,7 +126,6 @@ public class ServerHandler implements Runnable {
                     String result = "["+dateFormat.format(new Date()) + "]"+message;
                     // 返回服务端信息
                     CommonUtil.doWrite(socketChannel, result, "UTF-8");
-
                 }
             }
         }

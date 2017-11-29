@@ -11,6 +11,7 @@ public class Client {
     public static void start() {
         start(Properties.socket_server_ip, Properties.socket_server_port);
     }
+
     public static void start(String ip, int port) {
         if (clientHandler != null) clientHandler.stop();
         clientHandler = new ClientHandler(ip, port);

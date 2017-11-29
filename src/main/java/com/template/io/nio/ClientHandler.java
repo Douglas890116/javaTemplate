@@ -59,11 +59,13 @@ public class ClientHandler implements Runnable{
         try {
             connect();
             while (status) {
+                //阻塞,只有当至少一个注册的事件发生的时候才会继续.
+//              selector.select();
+                //非阻塞无论是否有读写事件发生，selector每隔1s被唤醒一次
                 selector.select(1000);
-
                 Set<SelectionKey> keys = selector.selectedKeys();
                 Iterator<SelectionKey> it = keys.iterator();
-                SelectionKey key = null;
+                SelectionKey key;
                 while (it.hasNext()) {
                     key = it.next();
                     it.remove();
@@ -73,6 +75,7 @@ public class ClientHandler implements Runnable{
         } catch (IOException e) {
             log.error("run() 方法错误!", e);
             e.printStackTrace();
+            System.exit(1);
         }
         //selector关闭后会自动释放里面管理的资源
         if (selector != null) {
@@ -100,6 +103,7 @@ public class ClientHandler implements Runnable{
                 if (socketChannel.finishConnect());
                 else System.exit(1);
             }
+            // 若消息可读,则读取消息
             if (key.isReadable()) {
                 // 创建ByteBuffer，并开辟一个1M的缓冲区
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
@@ -116,6 +120,8 @@ public class ClientHandler implements Runnable{
                     String message = new String(bytes, "UTF-8");
                     log.info("收到服务器返回的信息: " + message);
                 } else {
+                    // 没有读取到字节就忽略
+                    // 并关闭通道,释放资源
                     key.cancel();
                     socketChannel.close();
                 }
@@ -125,7 +131,7 @@ public class ClientHandler implements Runnable{
 
     public void sendMessage(String message, String charset) {
         try {
-            channel.register(selector, SelectionKey.OP_WRITE);
+            channel.register(selector, SelectionKey.OP_READ);
             CommonUtil.doWrite(channel, message, charset);
         } catch (ClosedChannelException e) {
             log.error("sendMessage(String message) 方法错误!", e);

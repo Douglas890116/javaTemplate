@@ -1,5 +1,6 @@
 package com.template.io.ntty;
 
+import com.template.io.Properties;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -41,6 +42,14 @@ public class Server {
         } finally {
             mainGroup.shutdownGracefully();
             workGroup.shutdownGracefully();
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            new Server(Properties.socket_server_port).start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

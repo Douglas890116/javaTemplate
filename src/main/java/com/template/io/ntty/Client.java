@@ -45,10 +45,10 @@ public class Client implements Runnable {
 
     public static void main(String[] args) throws Exception {
         new Thread(new Client()).start();
-        @SuppressWarnings("resource")
+
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.err.println("请输入信息: ");
+            System.err.print("请输入信息: ");
             client.sendMessage(scanner.nextLine(), "UTF-8");
         }
     }

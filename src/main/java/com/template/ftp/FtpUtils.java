@@ -7,7 +7,6 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.*;
-import java.lang.reflect.Array;
 
 /**
  * ftp 上传下载工具类
